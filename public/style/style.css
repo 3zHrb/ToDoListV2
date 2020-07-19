@@ -1,0 +1,54 @@
+.smallBox{
+background-color: red;
+width: 40%;
+margin: 50px auto 50px auto;
+border: 0.1px solid black;
+border-radius: 20px;
+text-align: center;
+}
+
+.mainBox{
+position: relative;
+overflow: inherit;
+background-color: blue;
+width: 40%;
+margin: 0 auto auto auto;
+border: 0.1px solid black;
+border-radius: 20px;
+}
+
+input[type="checkbox"]{
+  float: left;
+  margin: 0px 20px 5px 10px;
+}
+
+input[type="text"]{
+  margin: 0px 10% 0 30%;
+}
+
+input:checked + p{
+  text-decoration: line-through;
+  text-decoration-color: red;
+}
+
+.pStyle{
+  text-align: center;
+  color: white;
+}
+
+
+.from2Button{
+  position: relative;
+  left: 50px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.form1{
+  border-bottom: 1px solid black;
+}
+
+.form2{
+  min-height: 40px;
+}

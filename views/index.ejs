@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/style/style.css">
+</head>
+<body>
+  <div class="smallBox">
+    <p class="pStyle">Home</p>
+  </div>
+
+  <div class="mainBox">
+
+
+
+    <% Data.forEach(function(data){ %>
+
+      <form class="form1" action"/" method="post">
+      <input name="checkBoxName" type="checkbox" value="<%= data._id %>" onChange="this.form.submit()"></input>
+      <p class="pStyle"> <%= data.name %> </p>
+
+      </form>
+
+  <% }); %>
+
+<form class="form2" action="/post" method="post">
+<input type="text" name="addedData"></input>
+<button type="submit" class="from2Button">+</button>
+</form>
+  </div>
+</body>
+</html>
