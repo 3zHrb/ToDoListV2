@@ -6,18 +6,34 @@ var _ = require("lodash");
 var nodemon = require("nodemon");
 
 var app = express();
+var arrayOfInsertedData = [];
+var currentPara;
 
+// creating a database if it does not exist + connect to interval
+// if database alreday exist it will just connect to it
 mongoose.connect("mongodb://localhost:27017/ItemsDataBase", {useNewUrlParser: true});
 
-var Schema = new mongoose.Schema({
+// strarting first collection *******************
+// create sechamatic
+var Schema1 = new mongoose.Schema({
   name: String
 });
+//create the collection
+var items = mongoose.model("items", Schema1);
+// ******************* ending the first collection
+
+// strarting second collection *******************
+
+//creating schematic for the first collection
+
+var Schema2 = new mongoose.Schema({
+  route: String,
+  itsList: [Schema1]
+});
+// create the collection
+var parametersWithItems = mongoose.model("routeDatabase",Schema2);
 
 
-var items = mongoose.model("items", Schema);
-
-
-var arrayOfInsertedData = [];
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,31 +55,84 @@ if (error){
 }else{
 arrayOfInsertedData = datas;
 if (arrayOfInsertedData.length == 0){
-res.render("index", {Data: []});
+res.render("index", {Data: [], route: "/"});
 }else {
-res.render("index", {Data: arrayOfInsertedData});
+res.render("index", {Data: arrayOfInsertedData, route: "/"});
 }
 }
 
 });
+});
+
+app.get("/:para", function(req, res){
+
+var parameter = req.params.para;
+
+currentPara = parameter;
+
+parametersWithItems.findOne({route: parameter}, function(error, data){
+
+if(data){
+
+res.render("index", {Data: data, route:parameter});
+
+}else{
+  parametersWithItems.create({route: parameter, itsList: []}, function(error, passed){
+    if(error){
+      console.log("there is an error creating parameter with list");
+    }
+    if(passed){
+      console.log("parameter and list are saved");
+    }
+  });
+}
+
+});
+
+res.redirect("/"+currentPara);
+
+});
+
+app.get("/" + currentPara, function(req, res){
+
+parametersWithItems.find({route: currentPara}, function(error, data){
+  res.render("index", {Data: data, route:currentPara});
+});
+
 });
 
 
 // collection.insertOne({},function(error, data){})
 app.post("/post", function(req,res){
 var insertedData = req.body.addedData;
+var route = req.body.route;
 
-items.create({name: insertedData}, function(error, sucess){
-  if (error){
-    console.log("error Occured");
-  }
+var rowOfItem = new items({name: insertedData});
 
-if(sucess){
-  console.log("Data is saved");
+parametersWithItems.findOneAndUpdate({route: route}, {itsList: insertedData}, function(error, succ){
+
+if(error){
+  console.log("error while updating the itsList");
+}
+
+if(succ){
+  console.log("data is updated");
 }
 
 });
 
+//*********
+// items.create({name: insertedData}, function(error, sucess){
+//   if (error){
+//     console.log("error Occured");
+//   }
+//
+// if(sucess){
+//   console.log("Data is saved");
+// }
+//
+// });
+//*********
 // res.render("index", {Data: arrayOfInsertedData});
 res.redirect("/");
 

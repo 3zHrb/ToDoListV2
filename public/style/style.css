@@ -1,48 +1,67 @@
+body{
+  background-color: #5390d9;
+}
 .smallBox{
-background-color: red;
+background-color: #72efdd;
 width: 40%;
 margin: 50px auto 50px auto;
-border: 0.1px solid black;
+border: 0;
 border-radius: 20px;
 text-align: center;
+min-height: 40px;
+
 }
 
 .mainBox{
 position: relative;
-overflow: inherit;
-background-color: blue;
+overflow: auto;
+background-color: #72efdd;
 width: 40%;
 margin: 0 auto auto auto;
-border: 0.1px solid black;
+border: 0;
 border-radius: 20px;
+height: 60px;
 }
 
 input[type="checkbox"]{
   float: left;
   margin: 0px 20px 5px 10px;
+  border: 0;
+
 }
 
 input[type="text"]{
-  margin: 0px 10% 0 30%;
+
+  position: absolute;
+  left: 10px;
+  bottom: 0px;
+  height: inherit;
+  border: 0;
+  outline: none;
+  background-color: #72efdd;
 }
 
 input:checked + p{
   text-decoration: line-through;
-  text-decoration-color: red;
+  text-decoration-color: #5390d9;
 }
 
 .pStyle{
   text-align: center;
-  color: white;
+  color: #5390d9;
 }
 
 
 .from2Button{
-  position: relative;
-  left: 50px;
-  width: 30px;
-  height: 30px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  border: 0;
+  background-color: #5390d9;
+  color: white;
 }
 
 .form1{
@@ -50,5 +69,5 @@ input:checked + p{
 }
 
 .form2{
-  min-height: 40px;
+  height: inherit;
 }

@@ -12,18 +12,19 @@
 
 
 
-    <% Data.forEach(function(data){ %>
+    <% Data.forEach(function(lists){ %>
 
       <form class="form1" action"/" method="post">
-      <input name="checkBoxName" type="checkbox" value="<%= data._id %>" onChange="this.form.submit()"></input>
-      <p class="pStyle"> <%= data.name %> </p>
+      <input name="checkBoxName" type="checkbox" value="<%= lists._id %>" onChange="this.form.submit()"></input>
+      <p class="pStyle"> <%= lists.itsList %> </p>
 
       </form>
 
   <% }); %>
 
 <form class="form2" action="/post" method="post">
-<input type="text" name="addedData"></input>
+<input type="text" name="addedData" autofocus></input>
+<input type="hidden" value="<%= route %>"></input>
 <button type="submit" class="from2Button">+</button>
 </form>
   </div>
